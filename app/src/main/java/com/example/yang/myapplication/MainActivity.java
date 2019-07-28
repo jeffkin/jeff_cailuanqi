@@ -44,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
     public String SubscribeString = "cailuanqi_test1";//订阅的主题
     public String PublishString = "cailuanqi_test";//发布的主题
 
-   private String MqttUserStringDefault = "5dqexwm/cailuanqi_1";
-   private String MqttPwdStringDefault = "AwVAzZpCcS64L92Q";
-   private String MqttIPStringDefault = "5dqexwm.mqtt.iot.gz.baidubce.com";
-   private int MqttPortDefault = 1883;
-   public String SubscribeStringDefault = "cailuanqi_test1";//订阅的主题
-   public String PublishStringDefault = "cailuanqi_test";//发布的主题
+    private String MqttUserStringDefault = "5dqexwm/cailuanqi_1";
+    private String MqttPwdStringDefault = "AwVAzZpCcS64L92Q";
+    private String MqttIPStringDefault = "5dqexwm.mqtt.iot.gz.baidubce.com";
+    private int MqttPortDefault = 1883;
+    public String SubscribeStringDefault = "cailuanqi_test1";//订阅的主题
+    public String PublishStringDefault = "cailuanqi_test";//发布的主题
 
     private MqttConnectOptions mqttConnectOptions;
     private MqttClient mqttClient;
@@ -57,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public static String TelephonyIMEI = "";
     MyHandler mHandler;
     TextView textView3;
-    Button button,button2,button6;
-  //  Button button,button2，;
+    Button button,button2;
     EditText EditText1;
     private SharedPreferencesHelper sharedPreferencesHelper;
 
@@ -89,31 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
         //发送数据
         button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String SendString = EditText1.getText().toString().replace(" ","");
-
-                if (SendString.length()>0)
-                {
-                    if (mqttClient != null && mqttClient.isConnected()){
-                        new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    MqttMessage msgMessage = new MqttMessage(SendString.getBytes());
-                                    mqttClient.publish(PublishString,msgMessage);
-                                } catch (MqttPersistenceException e) {
-                                } catch (MqttException e) {
-                                }catch (Exception e) {
-                                }
-                            }
-                        }).start();
-                    }
-                }
-            }
-        });
-
-        button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String SendString = EditText1.getText().toString().replace(" ","");
