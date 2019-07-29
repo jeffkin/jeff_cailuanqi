@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public static String TelephonyIMEI = "";
     MyHandler mHandler;
     TextView textView3;
-    Button button,button2;
+    Button button,button2,button6;
     EditText EditText1;
     private SharedPreferencesHelper sharedPreferencesHelper;
 
@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         textView3 = findViewById(R.id.textView3);
         button = findViewById(R.id.button);
         button2 = findViewById(R.id.button2);
+        button6 = findViewById(R.id.button6);
+
 
         //发送数据
         button.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +113,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String SendString = EditText1.getText().toString().replace(" ","");
+
+                if (SendString.length()>0)
+                {
+                    if (mqttClient != null && mqttClient.isConnected()){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    MqttMessage msgMessage = new MqttMessage(SendString.getBytes());
+                                    mqttClient.publish(PublishString,msgMessage);
+                                } catch (MqttPersistenceException e) {
+                                } catch (MqttException e) {
+                                }catch (Exception e) {
+                                }
+                            }
+                        }).start();
+                    }
+                }
+            }
+        });
+
 
         new Thread(new Runnable() {
             @Override
