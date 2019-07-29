@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final String SendString = EditText1.getText().toString().replace(" ","");
 
                 if (SendString.length()>0)
